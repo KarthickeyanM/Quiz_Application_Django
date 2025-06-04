@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+        </ul>
+    </nav>
+    <div class="px-40 flex flex-1 justify-center py-5">
+        <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
+            <h2 class="text-white tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">Log in to your account</h2>
+            <form action="/" method="POST">
+                {% csrf_token %}
+                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                    <label for="username">Username:</label>
+                    <input placeholder="Enter your username" type="text" id="username" name="username" required>
+                </div>
+                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                    <label for="password">Password:</label>
+                    <input placeholder="Enter your password" type="password" id="password" name="password" required>
+                </div>
+                <div class="flex px-4 py-3">
+                    <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 flex-1 bg-[#3d92f4] text-white text-sm font-bold leading-normal tracking-[0.015em]" type="submit">
+                        <span class="truncate">Login</span></button>
+                </div>
+            </form>
+            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

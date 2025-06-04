@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question {{ question.question_id }}</title>
+</head>
+<body>
+    {% if message %}
+        <h1>{{ message }}</h1>
+        <p>Please try again later.</p>
+    {% else %}
+        <h1>{{ question.question_text }}</h1>
+        
+        <form action="{% url 'Quiz:quiz_page' quiz.quiz_id %}?page={{ request.GET.page|default:1 }}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="question_id" value="{{ question.question_id }}">
+            <input type="hidden" name="page" value="{{ request.GET.page|default:1 }}">
+            
+            {% for option in choices %}
+                <div>
+                    <input 
+                        type="radio" 
+                        name="option_id" 
+                        id="option_{{ option.option_id }}" 
+                        value="{{ option.option_id }}" 
+                        required
+                    >
+                    <label for="option_{{ option.option_id }}">{{ option.option_text }}</label>
+                </div>
+            {% endfor %}
+
+            <button type="submit">Submit Answer</button>
+        </form>
+    {% endif %}
+</body>
+</html>
